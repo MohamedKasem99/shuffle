@@ -1,1 +1,59 @@
-Initial commit
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Standup Order</title>
+    <style>
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 5px;
+            border: 1px solid black;
+            margin-bottom: 5px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Random String List</h1>
+    <ul id="string-list">
+        <li>Kasem</li>
+        <li>Belal</li>
+        <li>Hoda</li>
+        <li>Awad</li>
+        <li>Mostafa</li>
+        <li>Kareem</li>
+    </ul>
+    <button id="randomize-btn">Randomize List</button>
+    <!-- <script src="script.js"></script> -->
+</body>
+<script>
+    const randomizeBtn = document.getElementById("randomize-btn");
+    const stringList = document.getElementById("string-list");
+
+    function randomizeList() {
+        for (let i = stringList.children.length; i >= 0; i--) {
+            stringList.appendChild(stringList.children[Math.random() * i | 0]);
+        }
+    }
+
+    randomizeBtn.addEventListener("click", randomizeList);
+    window.onload(randomizeList);
+</script>
+
+</html>
