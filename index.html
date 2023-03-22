@@ -1,59 +1,118 @@
 <!DOCTYPE html>
 <html>
 
+<title>Standup order</title>
+<style>
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    button {
+        font-size: 24px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        font-size: 24px;
+        padding: 10px;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        margin-right: 10px;
+    }
+
+    input[type="submit"] {
+        font-size: 24px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+
 <head>
-    <title>Standup Order</title>
-    <style>
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        li {
-            padding: 5px;
-            border: 1px solid black;
-            margin-bottom: 5px;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 5px;
-            font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Standup order</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <h1>Random String List</h1>
-    <ul id="string-list">
-        <li>Kasem</li>
-        <li>Belal</li>
-        <li>Hoda</li>
-        <li>Awad</li>
-        <li>Mostafa</li>
-        <li>Kareem</li>
-    </ul>
-    <button id="randomize-btn">Randomize List</button>
-    <!-- <script src="script.js"></script> -->
+    <div class="container">
+        <h1>Standup order</h1>
+        <ul id="name-list">
+            <li>Kasem</li>
+            <li>Belal</li>
+            <li>Hoda</li>
+            <li>Awad</li>
+            <li>Mostafa</li>
+            <li>Kareem</li>
+        </ul>
+        <button id="randomize-btn">Randomize</button>
+        <form id="add-name-form">
+            <input type="text" id="new-name-input" placeholder="Enter a name">
+            <button type="submit">Add Name</button>
+        </form>
+    </div>
 </body>
 <script>
+    const nameList = document.getElementById("name-list");
     const randomizeBtn = document.getElementById("randomize-btn");
-    const stringList = document.getElementById("string-list");
+    const addNameForm = document.getElementById("add-name-form");
+    const newNameInput = document.getElementById("new-name-input");
 
-    function randomizeList() {
-        for (let i = stringList.children.length; i >= 0; i--) {
-            stringList.appendChild(stringList.children[Math.random() * i | 0]);
+    // Function to shuffle the list of names
+    function shuffleNames() {
+        for (let i = nameList.children.length; i >= 0; i--) {
+            nameList.appendChild(nameList.children[Math.random() * i | 0]);
         }
     }
 
-    randomizeBtn.addEventListener("click", randomizeList);
-    window.onload(randomizeList);
+    // Event listener for the randomize button
+    randomizeBtn.addEventListener("click", shuffleNames);
+    window.addEventListener("load", shuffleNames);
+
+    // Event listener for the add name form
+    addNameForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        const newLi = document.createElement("li");
+        newLi.innerText = newNameInput.value;
+        nameList.appendChild(newLi);
+        newNameInput.value = "";
+    });
+
+    // Simple animation for the list items
+    nameList.addEventListener("click", function (event) {
+        event.target.classList.add("animated", "rubberBand");
+        setTimeout(() => {
+            event.target.classList.remove("animated", "rubberBand");
+        }, 1000);
+    });
+
 </script>
 
 </html>
