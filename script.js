@@ -2,6 +2,7 @@
 const nameList = document.getElementById("nameList");
 const randomizeBtn = document.getElementById("randomizeBtn");
 const newNameInput = document.getElementById("newName");
+const copyBtn = document.getElementById("copyBtn");
 const addNameBtn = document.getElementById("addNameBtn");
 
 function shuffle() {
@@ -24,6 +25,12 @@ function shuffleNames() {
     });
     setTimeout(shuffle, 350);
 }
+function copyNames() {
+    const names = Array.from(nameList.children).map((name) => name.textContent);
+    const namesString = names.join(", ");
+    navigator.clipboard.writeText(`Order is: ${namesString}`);
+}
+
 
 // Add name function
 function addName() {
@@ -39,5 +46,6 @@ function addName() {
 // Event listeners
 randomizeBtn.addEventListener("click", shuffleNames);
 addNameBtn.addEventListener("click", addName);
+copyBtn.addEventListener("click", copyNames);
 
 window.addEventListener("load", shuffleNames);
